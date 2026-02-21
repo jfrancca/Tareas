@@ -1,9 +1,32 @@
+version: '3.8'
+
 services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5433:5432"   # 👈 AQUÍ
   web:
     build: .
-    ports:
-      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
+    ports:
+      - "8000:8000"
     environment:
-      - PYTHONUNBUFFERED=1
+      - DEBUG=1
+      - ENCRYPTION_KEY=tOdLCPOtyY-JUPebx9WYIWw7kIPUMqeNTI88hnlwwXo=
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=password
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
