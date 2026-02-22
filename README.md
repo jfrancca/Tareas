@@ -22,9 +22,17 @@ Sigue estos pasos para levantar el proyecto en tu máquina local:
 
 ### 1. Clonar el repositorio
 ```bash
-git clone [https://github.com/tu-usuario/nombre-repo.git](https://github.com/tu-usuario/nombre-repo.git)
-cd nombre-repo
+git clone https://github.com/jfrancca/Tareas.git
+cd tareas
+```
 
+### 2. Levantar con Docker
+```bash
 docker-compose up --build
 El servidor estará disponible en: http://localhost:8000
+```
+
+### 3. Ejecutar Migraciones
+```bash
+docker-compose exec web python manage.py migrate
 
